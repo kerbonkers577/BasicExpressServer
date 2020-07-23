@@ -1,17 +1,26 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+let Post = require ('./post_model');
 
-
-mongoose.connect('mongodb://localhost/posts',{
+mongoose.connect('mongodb://localhost/Blog',{
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
-const dbConn = mongoose.mongoose.connection;
+const dbConn = mongoose.connection;
 
 app.get('/', function (req, res){
-    res.send('Hello World')
+    //Return all posts as a test
+    Post.find(function (err, posts){
+        if(err)
+        {
+            res.send(err)
+        }
+        else{
+            res.json(posts);
+        }
+    })
     
 })
 
